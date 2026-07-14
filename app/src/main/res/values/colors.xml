@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="brand_blue">#4B7DEC</color>
+    <color name="brand_yellow">#FDD900</color>
+    <color name="brand_purple">#3D2B7A</color>
+    <color name="accent_purple">#5B49CF</color>
+    <color name="category_games">#2FA8E6</color>
+    <color name="category_videos">#57B84C</color>
+    <color name="category_songs">#7B3FE4</color>
+    <color name="key_backspace">#F04438</color>
+    <color name="link_blue">#2F6BFF</color>
+    <color name="text_primary">#1F2233</color>
+    <color name="text_secondary">#8A8F9C</color>
 </resources>

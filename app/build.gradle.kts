@@ -35,9 +35,9 @@ android {
         jvmTarget = "11"
     }
 
-    // ── ViewBinding enabled; Jetpack Compose intentionally NOT used ──
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 

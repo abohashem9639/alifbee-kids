@@ -1,3 +1,37 @@
 <resources>
-    <string name="app_name">Kids Demo</string>
+    <string name="app_name">AlifBee Kids</string>
+
+    <string name="exploration_path">Exploration Path</string>
+    <string name="more_by_us">More By Us</string>
+    <string name="category_games">Games</string>
+    <string name="category_videos">Videos</string>
+    <string name="category_songs">Songs</string>
+
+    <string name="parents_lock">Parents Lock</string>
+    <string name="enter_the_numbers">Enter the numbers:</string>
+
+    <string name="more_by_alifbee">More by AlifBee</string>
+    <string name="view_on_app_store">View on App Store</string>
+
+    <string name="cd_background_music">Background music</string>
+    <string name="cd_next_category">Next category</string>
+    <string name="cd_previous_category">Previous category</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_delete">Delete</string>
+    <string name="cd_app_icon">Application icon</string>
+    <string name="cd_illustration">Illustration</string>
+    <string name="cd_logo">AlifBee Kids logo</string>
+
+    <string-array name="number_words">
+        <item>Zero</item>
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eight</item>
+        <item>Nine</item>
+    </string-array>
 </resources>
