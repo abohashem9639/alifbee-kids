@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PushButton">
+        <attr name="pbText" format="string" />
+        <attr name="pbIcon" format="reference" />
+        <attr name="pbTextColor" format="color" />
+        <attr name="pbTextSize" format="dimension" />
+        <attr name="pbFaceColor" format="color" />
+        <attr name="pbBaseColor" format="color" />
+        <attr name="pbCornerRadius" format="dimension" />
+        <attr name="pbDepth" format="dimension" />
+    </declare-styleable>
+</resources>

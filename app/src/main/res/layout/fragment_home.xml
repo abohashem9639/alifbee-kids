@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/cloud_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingVertical="@dimen/spacing_sm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.alifbee.kidsdemo.ui.components.PushButton
+            android:id="@+id/more_by_us_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:pbBaseColor="@color/more_by_us_base"
+            app:pbCornerRadius="28dp"
+            app:pbDepth="6dp"
+            app:pbFaceColor="@color/brand_blue"
+            app:pbIcon="@drawable/ic_alifbee"
+            app:pbText="@string/more_by_us"
+            app:pbTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/music_button"
+            android:layout_width="36dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="11dp"
+            android:contentDescription="@string/cd_background_music"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_music_on"
+            app:layout_constraintBottom_toBottomOf="@id/more_by_us_button"
+            app:layout_constraintEnd_toStartOf="@id/more_by_us_button"
+            app:layout_constraintTop_toTopOf="@id/more_by_us_button" />
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exploration_path"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/more_by_us_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/more_by_us_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/cloud_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/cloud_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/category_image"
+        android:layout_width="327dp"
+        android:layout_height="264dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_games"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/left_arrow"
+        android:layout_width="56dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="40dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_left_arrow"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/category_image"
+        app:layout_constraintEnd_toStartOf="@id/category_image"
+        app:layout_constraintTop_toTopOf="@id/category_image" />
+
+    <ImageButton
+        android:id="@+id/right_arrow"
+        android:layout_width="56dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_right_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/category_image"
+        app:layout_constraintStart_toEndOf="@id/category_image"
+        app:layout_constraintTop_toTopOf="@id/category_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

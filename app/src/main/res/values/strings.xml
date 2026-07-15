@@ -12,6 +12,7 @@
 
     <string name="more_by_alifbee">More by AlifBee</string>
     <string name="view_on_app_store">View on App Store</string>
+    <string name="apps_error">Couldn\'t load. Tap to retry.</string>
 
     <string name="cd_background_music">Background music</string>
     <string name="cd_next_category">Next category</string>
