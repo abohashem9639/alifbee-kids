@@ -11,19 +11,25 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
+    private val categoryAdapter = CategoryAdapter()
 
-    private var renderedIndex = 0
-    private var firstRender = true
-    private var animating = false
+    private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            updateArrows(position)
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -43,28 +49,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             insets
         }
 
-        binding.leftArrow.setOnClickListener { if (!animating) viewModel.previous() }
-        binding.rightArrow.setOnClickListener { if (!animating) viewModel.next() }
+        binding.categoryPager.adapter = categoryAdapter
+        binding.categoryPager.registerOnPageChangeCallback(pageChangeCallback)
+        categoryAdapter.submitList(viewModel.categories) {
+            updateArrows(binding.categoryPager.currentItem)
+        }
+
+        binding.leftArrow.setOnClickListener {
+            binding.categoryPager.currentItem = binding.categoryPager.currentItem - 1
+        }
+        binding.rightArrow.setOnClickListener {
+            binding.categoryPager.currentItem = binding.categoryPager.currentItem + 1
+        }
         binding.musicButton.setOnClickListener { viewModel.toggleMusic() }
         binding.moreByUsButton.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_parents_lock)
         }
 
-        observeState()
-    }
-
-    private fun observeState() {
-        viewModel.currentIndex.observe(viewLifecycleOwner) { index ->
-            updateArrows(index)
-            val imageRes = viewModel.categories[index].imageRes
-            if (firstRender) {
-                binding.categoryImage.setImageResource(imageRes)
-                firstRender = false
-            } else {
-                slide(goingNext = index > renderedIndex, imageRes = imageRes)
-            }
-            renderedIndex = index
-        }
         viewModel.musicOn.observe(viewLifecycleOwner) { on ->
             binding.musicButton.setImageResource(
                 if (on) R.drawable.ic_music_on else R.drawable.ic_music_off
@@ -73,34 +74,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun updateArrows(index: Int) {
-        binding.leftArrow.isInvisible = index == 0
-        binding.rightArrow.isInvisible = index == viewModel.categories.lastIndex
-    }
-
-    private fun slide(goingNext: Boolean, imageRes: Int) {
-        val width = binding.root.width.toFloat()
-        animating = true
-        binding.categoryImage.animate()
-            .translationX(if (goingNext) -width else width)
-            .setDuration(SLIDE_DURATION)
-            .withEndAction {
-                binding.categoryImage.setImageResource(imageRes)
-                binding.categoryImage.translationX = if (goingNext) width else -width
-                binding.categoryImage.animate()
-                    .translationX(0f)
-                    .setDuration(SLIDE_DURATION)
-                    .withEndAction { animating = false }
-                    .start()
-            }
-            .start()
+        val lastIndex = (binding.categoryPager.adapter?.itemCount ?: 0) - 1
+        binding.leftArrow.isInvisible = index <= 0
+        binding.rightArrow.isInvisible = index >= lastIndex
     }
 
     override fun onDestroyView() {
+        binding.categoryPager.unregisterOnPageChangeCallback(pageChangeCallback)
+        binding.categoryPager.adapter = null
         _binding = null
         super.onDestroyView()
-    }
-
-    companion object {
-        private const val SLIDE_DURATION = 100L
     }
 }

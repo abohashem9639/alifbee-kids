@@ -1,18 +1,24 @@
 package com.alifbee.kidsdemo.ui.parents
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.alifbee.kidsdemo.R
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlin.random.Random
 
-class ParentsLockViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ParentsLockViewModel @Inject constructor(
+    @ApplicationContext context: Context
+) : ViewModel() {
 
     private val code = List(CODE_LENGTH) { Random.nextInt(1, 10) }
 
     val codeWords: String = code.joinToString(", ") {
-        application.resources.getStringArray(R.array.number_words)[it]
+        context.resources.getStringArray(R.array.number_words)[it]
     }
 
     private val _entered = MutableLiveData<List<Int>>(emptyList())

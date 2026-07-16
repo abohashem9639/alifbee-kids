@@ -2,11 +2,11 @@ package com.alifbee.kidsdemo.data.repository
 
 import com.alifbee.kidsdemo.data.model.AppItem
 import com.alifbee.kidsdemo.data.remote.ApiService
-import com.alifbee.kidsdemo.data.remote.NetworkModule
 import java.util.Locale
+import javax.inject.Inject
 
-class RemoteAppsRepository(
-    private val api: ApiService = NetworkModule.apiService
+class RemoteAppsRepository @Inject constructor(
+    private val api: ApiService
 ) : AppsRepository {
 
     override suspend fun getApps(): List<AppItem> {

@@ -19,7 +19,9 @@ import androidx.navigation.fragment.findNavController
 import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.databinding.FragmentParentsLockBinding
 import com.alifbee.kidsdemo.ui.components.PushButton
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ParentsLockFragment : Fragment(R.layout.fragment_parents_lock) {
 
     private var _binding: FragmentParentsLockBinding? = null

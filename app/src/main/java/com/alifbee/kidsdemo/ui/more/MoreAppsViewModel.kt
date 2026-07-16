@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.alifbee.kidsdemo.core.UiState
 import com.alifbee.kidsdemo.data.model.AppItem
 import com.alifbee.kidsdemo.data.repository.AppsRepository
-import com.alifbee.kidsdemo.data.repository.RemoteAppsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MoreAppsViewModel : ViewModel() {
-
-    private val repository: AppsRepository = RemoteAppsRepository()
+@HiltViewModel
+class MoreAppsViewModel @Inject constructor(
+    private val repository: AppsRepository
+) : ViewModel() {
 
     private val _uiState = MutableLiveData<UiState<List<AppItem>>>(UiState.Loading)
     val uiState: LiveData<UiState<List<AppItem>>> = _uiState

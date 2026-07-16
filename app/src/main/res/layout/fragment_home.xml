@@ -80,12 +80,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/category_image"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/category_pager"
         android:layout_width="327dp"
         android:layout_height="264dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_games"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,9 +99,9 @@
         android:src="@drawable/ic_left_arrow"
         android:stateListAnimator="@animator/press_scale"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/category_image"
-        app:layout_constraintEnd_toStartOf="@id/category_image"
-        app:layout_constraintTop_toTopOf="@id/category_image" />
+        app:layout_constraintBottom_toBottomOf="@id/category_pager"
+        app:layout_constraintEnd_toStartOf="@id/category_pager"
+        app:layout_constraintTop_toTopOf="@id/category_pager" />
 
     <ImageButton
         android:id="@+id/right_arrow"
@@ -114,8 +112,8 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_right_arrow"
         android:stateListAnimator="@animator/press_scale"
-        app:layout_constraintBottom_toBottomOf="@id/category_image"
-        app:layout_constraintStart_toEndOf="@id/category_image"
-        app:layout_constraintTop_toTopOf="@id/category_image" />
+        app:layout_constraintBottom_toBottomOf="@id/category_pager"
+        app:layout_constraintStart_toEndOf="@id/category_pager"
+        app:layout_constraintTop_toTopOf="@id/category_pager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
