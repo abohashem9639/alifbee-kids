@@ -7,12 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.alifbee.kidsdemo.core.UiState
 import com.alifbee.kidsdemo.data.model.AppItem
 import com.alifbee.kidsdemo.data.repository.AppsRepository
-import com.alifbee.kidsdemo.data.repository.FakeAppsRepository
+import com.alifbee.kidsdemo.data.repository.RemoteAppsRepository
 import kotlinx.coroutines.launch
 
 class MoreAppsViewModel : ViewModel() {
 
-    private val repository: AppsRepository = FakeAppsRepository()
+    private val repository: AppsRepository = RemoteAppsRepository()
 
     private val _uiState = MutableLiveData<UiState<List<AppItem>>>(UiState.Loading)
     val uiState: LiveData<UiState<List<AppItem>>> = _uiState

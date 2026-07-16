@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.data.model.AppItem
 import com.alifbee.kidsdemo.databinding.ItemMoreAppBinding
 
@@ -19,6 +21,11 @@ class MoreAppsAdapter(
         fun bind(item: AppItem) {
             binding.appName.text = item.name
             binding.appDescription.text = item.description
+            binding.appIcon.load(item.iconUrl) {
+                placeholder(R.drawable.ic_alifbee)
+                error(R.drawable.ic_alifbee)
+                crossfade(true)
+            }
             binding.appLink.setOnClickListener { onAppClick(item) }
             binding.root.setOnClickListener { onAppClick(item) }
         }
