@@ -99,6 +99,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_left_arrow"
+        android:stateListAnimator="@animator/press_scale"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/category_image"
         app:layout_constraintEnd_toStartOf="@id/category_image"
@@ -112,6 +113,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_right_arrow"
+        android:stateListAnimator="@animator/press_scale"
         app:layout_constraintBottom_toBottomOf="@id/category_image"
         app:layout_constraintStart_toEndOf="@id/category_image"
         app:layout_constraintTop_toTopOf="@id/category_image" />
