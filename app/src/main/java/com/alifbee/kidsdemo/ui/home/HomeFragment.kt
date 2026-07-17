@@ -2,87 +2,59 @@ package com.alifbee.kidsdemo.ui.home
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.ViewGroup
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.isInvisible
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.alifbee.kidsdemo.R
-import com.alifbee.kidsdemo.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(), HomeView.Listener {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private var mView: HomeView? = null
 
     private val viewModel: HomeViewModel by viewModels()
-    private val categoryAdapter = CategoryAdapter()
-
-    private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
-        override fun onPageSelected(position: Int) {
-            updateArrows(position)
-        }
-    }
 
     override fun onResume() {
         super.onResume()
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = HomeViewImpl(inflater, container)
+        mView = view
+        return view.rootView
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentHomeBinding.bind(view)
+        val screen = mView ?: return
 
         val window = requireActivity().window
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.header) { v, insets ->
-            val topInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
-            v.updatePadding(top = topInset)
-            insets
-        }
-
-        binding.categoryPager.adapter = categoryAdapter
-        binding.categoryPager.registerOnPageChangeCallback(pageChangeCallback)
-        categoryAdapter.submitList(viewModel.categories) {
-            updateArrows(binding.categoryPager.currentItem)
-        }
-
-        binding.leftArrow.setOnClickListener {
-            binding.categoryPager.currentItem = binding.categoryPager.currentItem - 1
-        }
-        binding.rightArrow.setOnClickListener {
-            binding.categoryPager.currentItem = binding.categoryPager.currentItem + 1
-        }
-        binding.musicButton.setOnClickListener { viewModel.toggleMusic() }
-        binding.moreByUsButton.setOnClickListener {
+        screen.registerListener(this)
+        screen.bindCategories(viewModel.categories)
+        screen.onMusicClick { viewModel.toggleMusic() }
+        screen.onMoreByUsClick {
             findNavController().navigate(R.id.action_home_to_parents_lock)
         }
 
-        viewModel.musicOn.observe(viewLifecycleOwner) { on ->
-            binding.musicButton.setImageResource(
-                if (on) R.drawable.ic_music_on else R.drawable.ic_music_off
-            )
-        }
-    }
-
-    private fun updateArrows(index: Int) {
-        val lastIndex = (binding.categoryPager.adapter?.itemCount ?: 0) - 1
-        binding.leftArrow.isInvisible = index <= 0
-        binding.rightArrow.isInvisible = index >= lastIndex
+        viewModel.musicOn.observe(viewLifecycleOwner) { on -> screen.renderMusicState(on) }
     }
 
     override fun onDestroyView() {
-        binding.categoryPager.unregisterOnPageChangeCallback(pageChangeCallback)
-        binding.categoryPager.adapter = null
-        _binding = null
+        mView?.unregisterListener(this)
+        mView?.destroyView()
+        mView = null
         super.onDestroyView()
     }
 }

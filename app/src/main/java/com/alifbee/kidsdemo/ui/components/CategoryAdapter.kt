@@ -1,4 +1,4 @@
-package com.alifbee.kidsdemo.ui.home
+package com.alifbee.kidsdemo.ui.components
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
