@@ -2,17 +2,12 @@ package com.alifbee.kidsdemo.ui.parents
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.Space
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.databinding.FragmentParentsLockBinding
 import com.alifbee.kidsdemo.ui.common.BaseObservableView
-import com.alifbee.kidsdemo.ui.components.PushButton
 
 class ParentsLockViewImpl(
     inflater: LayoutInflater,
@@ -36,7 +31,7 @@ class ParentsLockViewImpl(
 
         pinCells = listOf(binding.pin0, binding.pin1, binding.pin2)
 
-        buildKeypad(inflater)
+        setupKeypad()
     }
 
     override fun bindCodeWords(text: String) {
@@ -53,60 +48,31 @@ class ParentsLockViewImpl(
         binding.backButton.setOnClickListener { action() }
     }
 
-    private fun buildKeypad(inflater: LayoutInflater) {
-        val context = rootContext
-        for (label in KEY_LABELS) {
-            when (label) {
-                KEY_EMPTY -> binding.keypad.addView(Space(context), cellParams())
-                KEY_BACKSPACE -> {
-                    val key = inflater.inflate(R.layout.item_key, binding.keypad, false) as PushButton
-                    key.setText(label)
-                    key.setFaceColor(ContextCompat.getColor(context, R.color.key_backspace))
-                    key.setLabelColor(ContextCompat.getColor(context, R.color.white))
-                    key.setOnClickListener {
-                        for (listener in listeners) {
-                            listener.onDelete()
-                        }
-                    }
-                    binding.keypad.addView(key)
-                }
-                else -> {
-                    val key = inflater.inflate(R.layout.item_key, binding.keypad, false) as PushButton
-                    key.setText(label)
-                    key.setOnClickListener {
-                        val digit = label.toInt()
-                        for (listener in listeners) {
-                            listener.onDigit(digit)
-                        }
-                    }
-                    binding.keypad.addView(key)
-                }
+    private fun setupKeypad() {
+        binding.key1.setOnClickListener { notifyDigit(1) }
+        binding.key2.setOnClickListener { notifyDigit(2) }
+        binding.key3.setOnClickListener { notifyDigit(3) }
+        binding.key4.setOnClickListener { notifyDigit(4) }
+        binding.key5.setOnClickListener { notifyDigit(5) }
+        binding.key6.setOnClickListener { notifyDigit(6) }
+        binding.key7.setOnClickListener { notifyDigit(7) }
+        binding.key8.setOnClickListener { notifyDigit(8) }
+        binding.key9.setOnClickListener { notifyDigit(9) }
+        binding.key0.setOnClickListener { notifyDigit(0) }
+        binding.keyBackspace.setOnClickListener {
+            for (listener in listeners) {
+                listener.onDelete()
             }
         }
     }
 
-    private fun cellParams(): GridLayout.LayoutParams {
-        val margin = rootContext.resources.getDimensionPixelSize(R.dimen.spacing_xs)
-        return GridLayout.LayoutParams().apply {
-            width = 0
-            height = ViewGroup.LayoutParams.WRAP_CONTENT
-            columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-            setMargins(margin, margin, margin, margin)
+    private fun notifyDigit(digit: Int) {
+        for (listener in listeners) {
+            listener.onDigit(digit)
         }
     }
 
     override fun destroyView() {
         _binding = null
-    }
-
-    companion object {
-        private const val KEY_EMPTY = ""
-        private const val KEY_BACKSPACE = "<<"
-        private val KEY_LABELS = listOf(
-            "1", "2", "3",
-            "4", "5", "6",
-            "7", "8", "9",
-            KEY_EMPTY, "0", KEY_BACKSPACE
-        )
     }
 }

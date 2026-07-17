@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MoreAppsFragment : Fragment(), MoreAppsView.Listener {
 
-    private var mView: MoreAppsView? = null
+    private lateinit var mView: MoreAppsView
 
     private val viewModel: MoreAppsViewModel by viewModels()
 
@@ -39,16 +39,15 @@ class MoreAppsFragment : Fragment(), MoreAppsView.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val screen = mView ?: return
 
         val window = requireActivity().window
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
 
-        screen.registerListener(this)
-        screen.onBackClick { findNavController().navigateUp() }
-        screen.onRetryClick { viewModel.loadApps() }
+        mView.registerListener(this)
+        mView.onBackClick { findNavController().navigateUp() }
+        mView.onRetryClick { viewModel.loadApps() }
 
-        viewModel.uiState.observe(viewLifecycleOwner) { state -> screen.render(state) }
+        viewModel.uiState.observe(viewLifecycleOwner) { state -> mView.render(state) }
     }
 
     override fun onAppClick(action: (AppItem)) {
@@ -61,9 +60,8 @@ class MoreAppsFragment : Fragment(), MoreAppsView.Listener {
     }
 
     override fun onDestroyView() {
-        mView?.unregisterListener(this)
-        mView?.destroyView()
-        mView = null
+        mView.unregisterListener(this)
+        mView.destroyView()
         super.onDestroyView()
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,7 +22,17 @@ class HomeFragment : Fragment(), HomeView.Listener {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        val activity = requireActivity()
+        activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        systemBarsController().apply {
+            hide(WindowInsetsCompat.Type.systemBars())
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        systemBarsController().show(WindowInsetsCompat.Type.systemBars())
     }
 
     override fun onCreateView(
@@ -38,8 +49,7 @@ class HomeFragment : Fragment(), HomeView.Listener {
         super.onViewCreated(view, savedInstanceState)
         val screen = mView ?: return
 
-        val window = requireActivity().window
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        systemBarsController().isAppearanceLightStatusBars = true
 
         screen.registerListener(this)
         screen.bindCategories(viewModel.categories)
@@ -56,5 +66,10 @@ class HomeFragment : Fragment(), HomeView.Listener {
         mView?.destroyView()
         mView = null
         super.onDestroyView()
+    }
+
+    private fun systemBarsController(): WindowInsetsControllerCompat {
+        val window = requireActivity().window
+        return WindowInsetsControllerCompat(window, window.decorView)
     }
 }

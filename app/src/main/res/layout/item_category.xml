@@ -6,8 +6,9 @@
 
     <ImageView
         android:id="@+id/category_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="327dp"
+        android:layout_height="264dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/cd_illustration"
         android:scaleType="fitCenter"
         tools:src="@drawable/img_games" />

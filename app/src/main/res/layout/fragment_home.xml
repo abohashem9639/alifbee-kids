@@ -14,10 +14,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/cloud_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/cloud_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/category_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+
+    <ImageButton
+        android:id="@+id/left_arrow"
+        android:layout_width="56dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_left_arrow"
+        android:stateListAnimator="@animator/press_scale"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/category_pager"
+        app:layout_constraintStart_toEndOf="@+id/cloud_2"
+        app:layout_constraintTop_toTopOf="@+id/category_pager" />
+
+    <ImageButton
+        android:id="@+id/right_arrow"
+        android:layout_width="56dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_right_arrow"
+        android:stateListAnimator="@animator/press_scale"
+        app:layout_constraintBottom_toBottomOf="@+id/category_pager"
+        app:layout_constraintEnd_toStartOf="@+id/cloud_3"
+        app:layout_constraintTop_toTopOf="@+id/category_pager" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_md"
         android:paddingHorizontal="@dimen/spacing_md"
         android:paddingVertical="@dimen/spacing_sm"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,15 +81,15 @@
             android:id="@+id/more_by_us_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:pbBaseColor="@color/more_by_us_base"
             app:pbCornerRadius="28dp"
             app:pbDepth="6dp"
             app:pbFaceColor="@color/brand_blue"
             app:pbIcon="@drawable/ic_alifbee"
             app:pbText="@string/more_by_us"
-            app:pbTextColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:pbTextColor="@color/white" />
 
         <ImageView
             android:id="@+id/music_button"
@@ -63,57 +116,5 @@
             app:layout_constraintTop_toTopOf="@id/more_by_us_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/cloud_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cloud_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/cloud_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cloud_3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/category_pager"
-        android:layout_width="327dp"
-        android:layout_height="264dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/left_arrow"
-        android:layout_width="56dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="40dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_left_arrow"
-        android:stateListAnimator="@animator/press_scale"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/category_pager"
-        app:layout_constraintEnd_toStartOf="@id/category_pager"
-        app:layout_constraintTop_toTopOf="@id/category_pager" />
-
-    <ImageButton
-        android:id="@+id/right_arrow"
-        android:layout_width="56dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="40dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_right_arrow"
-        android:stateListAnimator="@animator/press_scale"
-        app:layout_constraintBottom_toBottomOf="@id/category_pager"
-        app:layout_constraintStart_toEndOf="@id/category_pager"
-        app:layout_constraintTop_toTopOf="@id/category_pager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
