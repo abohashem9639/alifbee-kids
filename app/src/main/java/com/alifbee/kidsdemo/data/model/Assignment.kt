@@ -12,4 +12,4 @@ data class Assignment(
     val status: AssignmentStatus,
 )
 
-enum class AssignmentStatus { TO_DO, IN_PROGRESS, DONE }
+enum class AssignmentStatus { TO_DO, DONE, OVERDUE }

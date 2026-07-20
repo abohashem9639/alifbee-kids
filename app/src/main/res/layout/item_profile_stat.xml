@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_secondary"
             android:textSize="@dimen/text_body"
-            tools:text="Honey" />
+            android:maxLines="1"
+            tools:text="HoneyHoneyHoneyHoneyHoneyHoneyHoneyHoneyHoneyHoneyHoney" />
     </LinearLayout>
 </LinearLayout>

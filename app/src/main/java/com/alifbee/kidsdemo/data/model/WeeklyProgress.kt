@@ -1,8 +1,10 @@
 package com.alifbee.kidsdemo.data.model
 
+enum class DayState { COMPLETED, MISSED, PENDING }
+
 data class DayStatus(
     val label: String,
-    val completed: Boolean,
+    val state: DayState,
     val isCurrent: Boolean,
 )
 

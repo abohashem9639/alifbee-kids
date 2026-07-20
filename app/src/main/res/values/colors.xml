@@ -20,6 +20,8 @@
 
     <color name="homescreen_bg">#FFFFFF</color>
     <color name="go_premium_bg">#F4F4F6</color>
+    <color name="skeleton_placeholder">#E0E0E0</color>
+    <color name="skeleton_highlight">#F5F5F5</color>
     <color name="course_card_bg">#FCF4DD</color>
     <color name="course_progress_track">#F0E6C8</color>
     <color name="feature_circle_bg">#D9D5DE</color>
@@ -30,10 +32,16 @@
     <color name="day_glow">#FCE7A6</color>
     <color name="day_current_bg">#FDF3C9</color>
     <color name="day_empty_stroke">#D5D5D5</color>
+    <color name="day_missed_glow">#EDE7DC</color>
+    <color name="day_missed_bg">#D7D0C4</color>
     <color name="divider_gray">#E6E6E6</color>
     <color name="assignment_progress">#F5A623</color>
+    <color name="assignment_progress_done">#4ABF64</color>
+    <color name="assignment_progress_overdue">#DC3545</color>
     <color name="assignment_track">#ECECEC</color>
     <color name="status_todo_bg">#F5A623</color>
+    <color name="status_done_bg">#4ABF64</color>
+    <color name="status_overdue_bg">#DC3545</color>
     <color name="pricing_card_gray">#F2F2F2</color>
     <color name="pricing_card_lavender">#F4EEF7</color>
     <color name="pricing_badge_bg">#6E3B7E</color>

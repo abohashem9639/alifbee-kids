@@ -48,6 +48,8 @@
     <string name="assignment_lessons">Lessons</string>
     <string name="assignment_level">Level</string>
     <string name="status_to_do">To Do</string>
+    <string name="status_done">Done</string>
+    <string name="status_overdue">Overdue</string>
     <string name="percent_format">%1$d%%</string>
     <string name="pricing_month">Month</string>
     <string name="pricing_months">Months</string>

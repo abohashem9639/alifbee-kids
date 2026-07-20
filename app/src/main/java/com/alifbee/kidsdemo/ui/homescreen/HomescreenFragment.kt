@@ -45,6 +45,8 @@ class HomescreenFragment : Fragment(), HomescreenView.Listener {
         screen.onGoPremiumClick { }
         screen.onCurrentCourseClick { }
         screen.onSeeAllCoursesClick { }
+        screen.onAssignmentClick { }
+        screen.onAssignmentStatusClick { }
 
         viewModel.uiState.observe(viewLifecycleOwner) { state -> screen.render(state) }
     }

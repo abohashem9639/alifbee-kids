@@ -13,7 +13,9 @@ import androidx.core.view.updatePadding
 import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.core.UiState
 import com.alifbee.kidsdemo.data.model.Assignment
+import com.alifbee.kidsdemo.data.model.AssignmentStatus
 import com.alifbee.kidsdemo.data.model.Course
+import com.alifbee.kidsdemo.data.model.DayState
 import com.alifbee.kidsdemo.data.model.Feature
 import com.alifbee.kidsdemo.data.model.HomescreenData
 import com.alifbee.kidsdemo.data.model.PricingPlan
@@ -23,11 +25,13 @@ import com.alifbee.kidsdemo.data.model.UserProfile
 import com.alifbee.kidsdemo.data.model.UserStats
 import com.alifbee.kidsdemo.data.model.WeeklyProgress
 import com.alifbee.kidsdemo.databinding.FragmentHomescreenBinding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alifbee.kidsdemo.databinding.ItemDayBinding
-import com.alifbee.kidsdemo.databinding.ItemFeatureBinding
 import com.alifbee.kidsdemo.databinding.ItemPricingBinding
-import com.alifbee.kidsdemo.databinding.ItemServiceBinding
 import com.alifbee.kidsdemo.ui.common.BaseObservableView
+import com.alifbee.kidsdemo.ui.components.FeaturesAdapter
+import com.alifbee.kidsdemo.ui.components.ServicesAdapter
 import java.util.Locale
 
 class HomescreenViewImpl(
@@ -38,6 +42,11 @@ class HomescreenViewImpl(
     private var _binding: FragmentHomescreenBinding? = null
     private val binding get() = _binding!!
 
+    private val featuresAdapter = FeaturesAdapter()
+    private val servicesAdapter = ServicesAdapter()
+
+    private var assignmentStatusAction: (() -> Unit)? = null
+
     init {
         _binding = FragmentHomescreenBinding.inflate(inflater, parent, false)
         rootView = binding.root
@@ -47,18 +56,67 @@ class HomescreenViewImpl(
             v.updatePadding(top = bars.top, bottom = bars.bottom)
             insets
         }
+
+        binding.homescreenScroll.alpha = 0f
+        binding.homescreenScroll.isVisible = false
+
+        binding.sectionFeatures.featuresList.apply {
+            layoutManager = LinearLayoutManager(rootContext, LinearLayoutManager.HORIZONTAL, false)
+            adapter = featuresAdapter
+        }
+
+        binding.sectionServices.servicesList.apply {
+            layoutManager = GridLayoutManager(rootContext, 3)
+            adapter = servicesAdapter
+        }
     }
 
     override fun render(state: UiState<HomescreenData>) {
-        if (state is UiState.Success) {
-            renderProfile(state.data.profile, state.data.stats)
-            renderCurrentCourse(state.data.currentCourse)
-            renderFeatures(state.data.features)
-            renderServices(state.data.services)
-            renderStatistic(state.data.weeklyProgress, state.data.streakStats)
-            renderAssignment(state.data.currentAssignment)
-            renderPricing(state.data.pricingPlans)
+        when (state) {
+            UiState.Loading -> showLoading()
+            is UiState.Success -> {
+                renderProfile(state.data.profile, state.data.stats)
+                renderCurrentCourse(state.data.currentCourse)
+                renderFeatures(state.data.features)
+                renderServices(state.data.services)
+                renderStatistic(state.data.weeklyProgress, state.data.streakStats)
+                renderAssignment(state.data.currentAssignment)
+                renderPricing(state.data.pricingPlans)
+                hideLoading()
+            }
+            is UiState.Error -> hideLoading()
         }
+    }
+
+    private fun showLoading() {
+        binding.homescreenShimmer.isVisible = true
+        binding.homescreenShimmer.alpha = 1f
+        binding.homescreenShimmer.startShimmer()
+        binding.homescreenScroll.isVisible = false
+        binding.homescreenScroll.alpha = 0f
+    }
+
+    private fun hideLoading() {
+        val shimmer = binding.homescreenShimmer
+        val content = binding.homescreenScroll
+
+        if (!shimmer.isVisible) return
+
+        content.alpha = 0f
+        content.isVisible = true
+        content.animate()
+            .alpha(1f)
+            .setDuration(FADE_DURATION_MS)
+            .start()
+
+        shimmer.animate()
+            .alpha(0f)
+            .setDuration(FADE_DURATION_MS)
+            .withEndAction {
+                shimmer.stopShimmer()
+                shimmer.isVisible = false
+            }
+            .start()
     }
 
     private fun renderProfile(profile: UserProfile, stats: UserStats) {
@@ -96,34 +154,11 @@ class HomescreenViewImpl(
     }
 
     private fun renderFeatures(features: List<Feature>) {
-        val items: List<ItemFeatureBinding> = with(binding.sectionFeatures) {
-            listOf(feature0, feature1, feature2)
-        }
-        items.forEachIndexed { index, item ->
-            val feature = features.getOrNull(index)
-            item.root.isVisible = feature != null
-            if (feature != null) {
-                item.featureIcon.setImageResource(feature.iconRes)
-                item.featureLabel.text = feature.name
-            }
-        }
+        featuresAdapter.submitList(features)
     }
 
     private fun renderServices(services: List<Service>) {
-        val items: List<ItemServiceBinding> = with(binding.sectionServices) {
-            listOf(service0, service1, service2)
-        }
-        items.forEachIndexed { index, item ->
-            val service = services.getOrNull(index)
-            item.root.isVisible = service != null
-            if (service != null) {
-                item.serviceIcon.setImageResource(service.iconRes)
-                item.serviceLabel.text = service.name
-                item.root.setCardBackgroundColor(
-                    ContextCompat.getColor(rootContext, service.backgroundColorRes)
-                )
-            }
-        }
+        servicesAdapter.submitList(services)
     }
 
     private fun renderStatistic(weekly: WeeklyProgress, streak: StreakStats) {
@@ -143,9 +178,13 @@ class HomescreenViewImpl(
             cell.dayLabel.text = day.label
             cell.dayLabel.setTypeface(null, if (day.isCurrent) Typeface.BOLD else Typeface.NORMAL)
             cell.dayIndicator.setBackgroundResource(
-                if (day.completed) R.drawable.bg_day_completed else R.drawable.bg_day_empty
+                when (day.state) {
+                    DayState.COMPLETED -> R.drawable.bg_day_completed
+                    DayState.MISSED -> R.drawable.bg_day_missed
+                    DayState.PENDING -> R.drawable.bg_day_empty
+                }
             )
-            cell.dayLightning.isVisible = day.completed
+            cell.dayLightning.isVisible = day.state != DayState.PENDING
             cell.dayHighlight.background = if (day.isCurrent) {
                 ContextCompat.getDrawable(rootContext, R.drawable.bg_day_current)
             } else {
@@ -167,6 +206,40 @@ class HomescreenViewImpl(
         section.assignmentClassroom.text = assignment.classroom
         section.assignmentLessons.text = assignment.lessonsProgress
         section.assignmentLevel.text = assignment.level
+
+        val (statusBg, statusText, ringColor) = when (assignment.status) {
+            AssignmentStatus.TO_DO -> Triple(
+                R.drawable.bg_status_todo,
+                R.string.status_to_do,
+                R.color.assignment_progress,
+            )
+            AssignmentStatus.DONE -> Triple(
+                R.drawable.bg_status_done,
+                R.string.status_done,
+                R.color.assignment_progress_done,
+            )
+            AssignmentStatus.OVERDUE -> Triple(
+                R.drawable.bg_status_overdue,
+                R.string.status_overdue,
+                R.color.assignment_progress_overdue,
+            )
+        }
+
+        section.assignmentStatus.setBackgroundResource(statusBg)
+        section.assignmentStatus.setText(statusText)
+        section.assignmentProgress.setIndicatorColor(
+            ContextCompat.getColor(rootContext, ringColor)
+        )
+
+        if (assignment.status == AssignmentStatus.TO_DO) {
+            section.assignmentStatus.isClickable = true
+            section.assignmentStatus.isFocusable = true
+            section.assignmentStatus.setOnClickListener { assignmentStatusAction?.invoke() }
+        } else {
+            section.assignmentStatus.setOnClickListener(null)
+            section.assignmentStatus.isClickable = false
+            section.assignmentStatus.isFocusable = false
+        }
     }
 
     private fun renderPricing(plans: List<PricingPlan>) {
@@ -215,7 +288,7 @@ class HomescreenViewImpl(
             item.planMonthlyPrice.isVisible = false
         }
 
-        item.bestValueBadge.isVisible = plan.isBestValue
+        item.bestValueBadge.visibility = if (plan.isBestValue) View.VISIBLE else View.INVISIBLE
 
         item.pricingCard.setBackgroundResource(
             when {
@@ -240,7 +313,7 @@ class HomescreenViewImpl(
     }
 
     override fun onProfileClick(action: () -> Unit) {
-        binding.sectionProfile.profileCard.setOnClickListener { action() }
+        binding.sectionProfile.profileInfoGroup.setOnClickListener { action() }
     }
 
     override fun onGoPremiumClick(action: () -> Unit) {
@@ -255,7 +328,22 @@ class HomescreenViewImpl(
         binding.sectionCurrentCourse.seeAllGroup.setOnClickListener { action() }
     }
 
+    override fun onAssignmentClick(action: () -> Unit) {
+        binding.sectionAssignment.assignmentSection.setOnClickListener { action() }
+    }
+
+    override fun onAssignmentStatusClick(action: () -> Unit) {
+        assignmentStatusAction = action
+    }
+
     override fun destroyView() {
+        _binding?.homescreenShimmer?.stopShimmer()
+        _binding?.sectionFeatures?.featuresList?.adapter = null
+        _binding?.sectionServices?.servicesList?.adapter = null
         _binding = null
+    }
+
+    companion object {
+        private const val FADE_DURATION_MS = 300L
     }
 }

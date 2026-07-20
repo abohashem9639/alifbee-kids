@@ -11,6 +11,8 @@ interface HomescreenView : ObservableView<HomescreenView.Listener> {
     fun onGoPremiumClick(action: () -> Unit)
     fun onCurrentCourseClick(action: () -> Unit)
     fun onSeeAllCoursesClick(action: () -> Unit)
+    fun onAssignmentClick(action: () -> Unit)
+    fun onAssignmentStatusClick(action: () -> Unit)
     fun destroyView()
 
     interface Listener

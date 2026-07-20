@@ -5,7 +5,11 @@
     android:id="@+id/assignment_section"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -190,17 +194,17 @@
 
     </LinearLayout>
 
-<!--    <TextView-->
-<!--        android:id="@+id/assignment_status"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/spacing_md"-->
-<!--        android:background="@drawable/bg_status_todo"-->
-<!--        android:paddingHorizontal="@dimen/spacing_md"-->
-<!--        android:paddingVertical="6dp"-->
-<!--        android:text="@string/status_to_do"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="@dimen/text_body"-->
-<!--        android:textStyle="bold" />-->
+    <TextView
+        android:id="@+id/assignment_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:background="@drawable/bg_status_todo"
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingVertical="6dp"
+        android:text="@string/status_to_do"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_body"
+        android:textStyle="bold" />
 
 </LinearLayout>

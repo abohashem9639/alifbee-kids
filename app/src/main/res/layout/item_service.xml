@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/service_card"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="160dp"
+    android:layout_margin="@dimen/spacing_xs"
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="@color/service_bg_gray"
@@ -14,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/spacing_sm"
@@ -37,6 +38,7 @@
             android:textColor="@color/text_primary"
             android:textSize="@dimen/text_title"
             android:textStyle="bold"
+            android:maxLines="2"
             tools:text="Self Assessment" />
 
     </LinearLayout>

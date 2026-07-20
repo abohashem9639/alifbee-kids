@@ -92,7 +92,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_body"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="invisible"
         tools:visibility="visible" />
 
 </LinearLayout>
