@@ -1,6 +1,8 @@
 package com.alifbee.kidsdemo.data.di
 
 import com.alifbee.kidsdemo.data.repository.AppsRepository
+import com.alifbee.kidsdemo.data.repository.FakeHomescreenRepository
+import com.alifbee.kidsdemo.data.repository.HomescreenRepository
 import com.alifbee.kidsdemo.data.repository.RemoteAppsRepository
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindAppsRepository(impl: RemoteAppsRepository): AppsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindHomescreenRepository(impl: FakeHomescreenRepository): HomescreenRepository
 }

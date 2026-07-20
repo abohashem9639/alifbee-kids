@@ -22,8 +22,8 @@ class MoreAppsAdapter(
             binding.appName.text = item.name
             binding.appDescription.text = item.description
             binding.appIcon.load(item.iconUrl) {
-                placeholder(R.drawable.ic_alifbee)
-                error(R.drawable.ic_alifbee)
+                placeholder(R.drawable.ic_alifbee_2)
+                error(R.drawable.ic_alifbee_2)
                 crossfade(true)
             }
             binding.appLink.setOnClickListener { onAppClick(item) }

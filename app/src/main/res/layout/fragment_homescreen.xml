@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homescreen_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/homescreen_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/homescreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_xl">
+
+        <include
+            android:id="@+id/section_top_bar"
+            layout="@layout/section_top_bar" />
+
+        <include
+            android:id="@+id/section_profile"
+            layout="@layout/section_profile_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include
+            android:id="@+id/section_go_premium"
+            layout="@layout/section_go_premium"
+            android:layout_width="37dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <include
+            android:id="@+id/section_current_course"
+            layout="@layout/section_current_course"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <include
+            android:id="@+id/section_features"
+            layout="@layout/section_our_features"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <include
+            android:id="@+id/section_services"
+            layout="@layout/section_our_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <include
+            android:id="@+id/section_statistic"
+            layout="@layout/section_statistic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <include
+            android:id="@+id/section_assignment"
+            layout="@layout/section_assignment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg" />
+
+        <include
+            android:id="@+id/section_pricing"
+            layout="@layout/section_pricing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xl" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

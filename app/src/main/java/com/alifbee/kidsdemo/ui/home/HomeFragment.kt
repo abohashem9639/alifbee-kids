@@ -53,7 +53,9 @@ class HomeFragment : Fragment(), HomeView.Listener {
 
         screen.registerListener(this)
         screen.bindCategories(viewModel.categories)
-        screen.onMusicClick { viewModel.toggleMusic() }
+        screen.onMusicClick {
+            findNavController().navigate(R.id.action_home_to_homescreen)
+        }
         screen.onMoreByUsClick {
             findNavController().navigate(R.id.action_home_to_parents_lock)
         }

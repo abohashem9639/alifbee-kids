@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/cd_app_icon"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_alifbee" />
+                android:src="@drawable/ic_alifbee_2" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

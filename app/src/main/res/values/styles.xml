@@ -16,4 +16,9 @@
         <item name="backgroundTint">@color/key_backspace</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="ShapeAppearance.KidsDemo.ProfileBg" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
 </resources>

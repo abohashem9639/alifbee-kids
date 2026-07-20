@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_home_to_parents_lock"
             app:destination="@id/parentsLockFragment" />
+        <action
+            android:id="@+id/action_home_to_homescreen"
+            app:destination="@id/homescreenFragment" />
     </fragment>
 
     <fragment
@@ -44,5 +47,11 @@
         android:name="com.alifbee.kidsdemo.ui.more.MoreAppsFragment"
         android:label="MoreAppsFragment"
         tools:layout="@layout/fragment_more_apps" />
+
+    <fragment
+        android:id="@+id/homescreenFragment"
+        android:name="com.alifbee.kidsdemo.ui.homescreen.HomescreenFragment"
+        android:label="HomescreenFragment"
+        tools:layout="@layout/fragment_homescreen" />
 
 </navigation>

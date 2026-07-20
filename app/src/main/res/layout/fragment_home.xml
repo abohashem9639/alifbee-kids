@@ -87,7 +87,7 @@
             app:pbCornerRadius="28dp"
             app:pbDepth="6dp"
             app:pbFaceColor="@color/brand_blue"
-            app:pbIcon="@drawable/ic_alifbee"
+            app:pbIcon="@drawable/ic_alifbee_2"
             app:pbText="@string/more_by_us"
             app:pbTextColor="@color/white" />
 
