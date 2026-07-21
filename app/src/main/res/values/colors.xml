@@ -22,6 +22,7 @@
     <color name="go_premium_bg">#F4F4F6</color>
     <color name="skeleton_placeholder">#E0E0E0</color>
     <color name="skeleton_highlight">#F5F5F5</color>
+    <color name="bottom_nav_bg">#422A47</color>
     <color name="course_card_bg">#FCF4DD</color>
     <color name="course_progress_track">#F0E6C8</color>
     <color name="feature_circle_bg">#D9D5DE</color>

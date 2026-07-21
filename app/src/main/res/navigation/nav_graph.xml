@@ -54,4 +54,22 @@
         android:label="HomescreenFragment"
         tools:layout="@layout/fragment_homescreen" />
 
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.alifbee.kidsdemo.ui.library.LibraryFragment"
+        android:label="LibraryFragment"
+        tools:layout="@layout/fragment_library" />
+
+    <fragment
+        android:id="@+id/dictionaryFragment"
+        android:name="com.alifbee.kidsdemo.ui.dictionary.DictionaryFragment"
+        android:label="DictionaryFragment"
+        tools:layout="@layout/fragment_dictionary" />
+
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.alifbee.kidsdemo.ui.review.ReviewFragment"
+        android:label="ReviewFragment"
+        tools:layout="@layout/fragment_review" />
+
 </navigation>

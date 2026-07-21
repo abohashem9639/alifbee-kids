@@ -144,6 +144,6 @@ class FakeHomescreenRepository @Inject constructor() : HomescreenRepository {
     )
 
     companion object {
-        private const val SIMULATED_NETWORK_DELAY_MS = 5000L
+        private const val SIMULATED_NETWORK_DELAY_MS = 400L
     }
 }

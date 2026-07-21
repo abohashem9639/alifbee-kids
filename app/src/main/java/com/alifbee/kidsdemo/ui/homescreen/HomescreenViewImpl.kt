@@ -1,15 +1,19 @@
 package com.alifbee.kidsdemo.ui.homescreen
 
+import android.animation.ObjectAnimator
 import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
+import androidx.core.widget.NestedScrollView
 import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.core.UiState
 import com.alifbee.kidsdemo.data.model.Assignment
@@ -47,6 +51,10 @@ class HomescreenViewImpl(
 
     private var assignmentStatusAction: (() -> Unit)? = null
 
+    private var assignmentTargetProgress: Int = 0
+    private var assignmentProgressAnimated: Boolean = false
+    private var assignmentAnimator: ObjectAnimator? = null
+
     init {
         _binding = FragmentHomescreenBinding.inflate(inflater, parent, false)
         rootView = binding.root
@@ -69,6 +77,12 @@ class HomescreenViewImpl(
             layoutManager = GridLayoutManager(rootContext, 3)
             adapter = servicesAdapter
         }
+
+        binding.homescreenScroll.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { _, _, _, _, _ ->
+                maybeAnimateAssignmentProgress()
+            }
+        )
     }
 
     override fun render(state: UiState<HomescreenData>) {
@@ -85,6 +99,31 @@ class HomescreenViewImpl(
                 hideLoading()
             }
             is UiState.Error -> hideLoading()
+        }
+    }
+
+    private fun maybeAnimateAssignmentProgress() {
+        if (assignmentProgressAnimated) return
+        val view = _binding?.sectionAssignment?.assignmentProgress ?: return
+        val rect = Rect()
+        val visible = view.getGlobalVisibleRect(rect) && rect.height() > 0
+        if (!visible) return
+        assignmentProgressAnimated = true
+        runAssignmentProgressAnimation(assignmentTargetProgress)
+    }
+
+    private fun runAssignmentProgressAnimation(target: Int) {
+        val section = _binding?.sectionAssignment ?: return
+        assignmentAnimator?.cancel()
+            assignmentAnimator = ObjectAnimator.ofInt(section.assignmentProgress, "progress", 0, target).apply {
+            duration = ASSIGNMENT_ANIM_DURATION_MS
+            interpolator = DecelerateInterpolator()
+            addUpdateListener { anim ->
+                val value = anim.animatedValue as Int
+                section.assignmentProgressText.text =
+                    rootContext.getString(R.string.percent_format, value)
+            }
+            start()
         }
     }
 
@@ -126,9 +165,9 @@ class HomescreenViewImpl(
         profileSection.greeting.text = rootContext.getString(R.string.greeting_hi, profile.name)
         profileSection.email.text = profile.email
         profileSection.premiumRow.visibility = if (profile.isPremium) {
-            android.view.View.VISIBLE
+            View.VISIBLE
         } else {
-            android.view.View.GONE
+            View.GONE
         }
 
         profileSection.statHoney.statValue.text = stats.honey.toString()
@@ -197,9 +236,15 @@ class HomescreenViewImpl(
         val section = binding.sectionAssignment
         section.assignmentSection.isVisible = assignment != null
         if (assignment == null) return
-        section.assignmentProgress.progress = assignment.progressPercent
+
+        assignmentTargetProgress = assignment.progressPercent
+        assignmentProgressAnimated = false
+        assignmentAnimator?.cancel()
+        section.assignmentProgress.progress = 0
         section.assignmentProgressText.text =
-            rootContext.getString(R.string.percent_format, assignment.progressPercent)
+            rootContext.getString(R.string.percent_format, 0)
+        section.assignmentProgress.post { maybeAnimateAssignmentProgress() }
+
         section.assignmentTitle.text = assignment.title
         section.assignmentType.text = assignment.type
         section.assignmentDueDate.text = assignment.dueDate
@@ -337,6 +382,8 @@ class HomescreenViewImpl(
     }
 
     override fun destroyView() {
+        assignmentAnimator?.cancel()
+        assignmentAnimator = null
         _binding?.homescreenShimmer?.stopShimmer()
         _binding?.sectionFeatures?.featuresList?.adapter = null
         _binding?.sectionServices?.servicesList?.adapter = null
@@ -345,5 +392,6 @@ class HomescreenViewImpl(
 
     companion object {
         private const val FADE_DURATION_MS = 300L
+        private const val ASSIGNMENT_ANIM_DURATION_MS = 1500L
     }
 }

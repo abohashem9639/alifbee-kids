@@ -57,6 +57,16 @@
     <string name="discount_format">- %1$d%%</string>
     <string name="per_month_format">%1$s/month</string>
 
+    <string name="tab_home">Home</string>
+    <string name="tab_library">Library</string>
+    <string name="tab_dictionary">Dictionary</string>
+    <string name="tab_review">Review</string>
+
+    <string name="review_title">Review</string>
+    <string name="review_items_ready_for_review">Items ready for review</string>
+    <string name="review_all">Review All</string>
+    <string name="cd_info">Information</string>
+
     <string-array name="number_words">
         <item>Zero</item>
         <item>One</item>
