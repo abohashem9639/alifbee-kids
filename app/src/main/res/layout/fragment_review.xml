@@ -1,17 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/review_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/homescreen_bg">
+    android:background="@color/homescreen_bg"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/tab_review"
-        android:textColor="@color/text_primary"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <FrameLayout
+        android:id="@+id/review_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bottom_nav_bg">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/review_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/review_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/homescreen_bg">
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/review_header"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:minHeight="64dp"
+                android:background="@color/homescreen_bg"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layoutDescription="@xml/motion_scene_review_header"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:motionProgress="0">
+
+                <TextView
+                    android:id="@+id/review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    tools:text="38" />
+
+                <ImageView
+                    android:id="@+id/review_info"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/cd_info"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_info_outline" />
+
+                <TextView
+                    android:id="@+id/review_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/review_items_ready_for_review"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/review_all_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_review_all"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/spacing_md"
+                    android:text="@string/review_all"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/review_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="never"
+            android:paddingBottom="@dimen/spacing_lg"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:itemCount="8"
+            tools:listitem="@layout/item_review_entry" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

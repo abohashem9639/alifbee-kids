@@ -107,7 +107,7 @@ class FakeHomescreenRepository @Inject constructor() : HomescreenRepository {
         currentAssignment = AssignmentDto(
             id = "assignment-1",
             title = "Assignment title 1",
-            progressPercent = 60,
+            progressPercent = 13,
             type = "Quiz",
             dueDate = "Dec 9, 2021",
             classroom = "C1",
