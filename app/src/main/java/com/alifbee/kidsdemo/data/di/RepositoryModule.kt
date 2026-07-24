@@ -3,10 +3,10 @@ package com.alifbee.kidsdemo.data.di
 import com.alifbee.kidsdemo.data.repository.AppsRepository
 import com.alifbee.kidsdemo.data.repository.AuthRepository
 import com.alifbee.kidsdemo.data.repository.FakeHomescreenRepository
-import com.alifbee.kidsdemo.data.repository.FakeReviewRepository
 import com.alifbee.kidsdemo.data.repository.HomescreenRepository
 import com.alifbee.kidsdemo.data.repository.RemoteAppsRepository
 import com.alifbee.kidsdemo.data.repository.RemoteAuthRepository
+import com.alifbee.kidsdemo.data.repository.RemoteReviewRepository
 import com.alifbee.kidsdemo.data.repository.RemoteSyllabusRepository
 import com.alifbee.kidsdemo.data.repository.RemoteUserRepository
 import com.alifbee.kidsdemo.data.repository.ReviewRepository
@@ -44,5 +44,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindReviewRepository(impl: FakeReviewRepository): ReviewRepository
+    abstract fun bindReviewRepository(impl: RemoteReviewRepository): ReviewRepository
 }

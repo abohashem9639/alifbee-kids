@@ -67,7 +67,7 @@
     <string name="review_all">Tümünü Tekrarla</string>
     <string name="cd_info">Bilgi</string>
 
-    <string name="library_title">DERSLER</string>
+    <string name="library_title">Dersler</string>
     <string name="levels_title">Seviyeler</string>
     <string name="levels_count_format">%1$d seviye</string>
     <string name="lessons_count_format">%1$d Ders</string>

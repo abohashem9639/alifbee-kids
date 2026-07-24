@@ -1,8 +1,5 @@
 package com.alifbee.kidsdemo.data.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Syllabus(
     val courses: List<SyllabusCourse>,
     val levels: List<SyllabusLevel>,
@@ -10,7 +7,6 @@ data class Syllabus(
     val targets: List<SyllabusTarget>,
 )
 
-@Serializable
 data class SyllabusCourse(
     val id: Int,
     val slug: String,
@@ -23,7 +19,6 @@ data class SyllabusCourse(
     val isPremium: Boolean,
 )
 
-@Serializable
 data class SyllabusLevel(
     val id: Int,
     val slug: String,
@@ -32,7 +27,6 @@ data class SyllabusLevel(
     val order: Int,
 )
 
-@Serializable
 data class SyllabusLesson(
     val id: Int,
     val title: String,
@@ -45,7 +39,6 @@ data class SyllabusLesson(
     val status: Int,
 )
 
-@Serializable
 data class SyllabusTarget(
     val id: Int,
     val title: String,

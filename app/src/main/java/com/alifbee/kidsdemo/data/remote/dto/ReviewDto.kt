@@ -2,21 +2,18 @@ package com.alifbee.kidsdemo.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
+data class ReviewsBody(
+    @SerializedName("reviews") val reviews: List<ReviewDto>?,
+)
+
 data class ReviewDto(
-    @SerializedName("items_ready_count") val itemsReadyCount: Int,
-    @SerializedName("groups") val groups: List<ReviewGroupDto>,
-)
-
-data class ReviewGroupDto(
-    @SerializedName("id") val id: String,
-    @SerializedName("title") val title: String,
-    @SerializedName("items") val items: List<ReviewItemDto>,
-)
-
-data class ReviewItemDto(
-    @SerializedName("id") val id: String,
-    @SerializedName("arabic") val arabic: String,
-    @SerializedName("english") val english: String?,
-    @SerializedName("icon") val icon: String?,
-    @SerializedName("is_bookmarked") val isBookmarked: Boolean,
+    @SerializedName("reviewId") val reviewId: Int,
+    @SerializedName("text") val text: String?,
+    @SerializedName("translation") val translation: String?,
+    @SerializedName("sound") val sound: String?,
+    @SerializedName("score") val score: Int?,
+    @SerializedName("levelId") val levelId: Int?,
+    @SerializedName("isFavorite") val isFavorite: Boolean?,
+    @SerializedName("lessonId") val lessonId: Int?,
+    @SerializedName("lessonSlug") val lessonSlug: String?,
 )

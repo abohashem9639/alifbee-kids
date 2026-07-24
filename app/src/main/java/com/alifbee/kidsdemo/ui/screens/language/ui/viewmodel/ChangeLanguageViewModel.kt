@@ -4,9 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.data.datastore.DataStoreManager
 import com.alifbee.kidsdemo.data.model.AppLanguage
+import com.alifbee.kidsdemo.data.repository.ReviewRepository
+import com.alifbee.kidsdemo.data.repository.SyllabusRepository
 import com.alifbee.kidsdemo.data.repository.UserRepository
-import com.alifbee.kidsdemo.data.result.onFailure
-import com.alifbee.kidsdemo.data.result.onSuccess
 import com.alifbee.kidsdemo.ui.common.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
@@ -16,6 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 internal class ChangeLanguageViewModel @Inject constructor(
     private val userRepository: UserRepository,
+    private val syllabusRepository: SyllabusRepository,
+    private val reviewRepository: ReviewRepository,
     private val dataStoreManager: DataStoreManager,
 ) : BaseViewModel<ChangeLanguageContract.Event, ChangeLanguageContract.State, ChangeLanguageContract.Effect>(
     initialState = ChangeLanguageContract.State()
@@ -53,6 +55,8 @@ internal class ChangeLanguageViewModel @Inject constructor(
         viewModelScope.launch {
             dataStoreManager.setAppLanguage(code)
             userRepository.updateLearningLanguage(code)
+            runCatching { syllabusRepository.refreshSyllabus() }
+            runCatching { reviewRepository.refreshReviews() }
             setState { copy(isUpdating = false) }
             setEffect { ChangeLanguageContract.Effect.NavigateBack }
         }

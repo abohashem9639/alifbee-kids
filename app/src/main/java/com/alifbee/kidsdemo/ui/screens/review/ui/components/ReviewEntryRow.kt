@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -49,30 +47,13 @@ internal fun ReviewEntryRow(
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .alpha(if (item.iconRes != null) 1f else 0f)
-                .background(LocalCustomColors.current.reviewItemIconBg, RoundedCornerShape(8.dp)),
-            contentAlignment = Alignment.Center,
-        ) {
-            item.iconRes?.let { iconRes ->
-                Image(
-                    painter = painterResource(iconRes),
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier.size(32.dp),
-                )
-            }
-        }
-
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 16.dp),
+                .padding(end = 16.dp),
         ) {
             Text(
-                text = item.arabic,
+                text = item.text,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
@@ -86,9 +67,9 @@ internal fun ReviewEntryRow(
                     .height(1.dp)
                     .background(LocalCustomColors.current.reviewItemDivider),
             )
-            if (!item.english.isNullOrBlank()) {
+            if (!item.translation.isNullOrBlank()) {
                 Text(
-                    text = item.english,
+                    text = item.translation,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center,
@@ -115,7 +96,7 @@ internal fun ReviewEntryRow(
 
         Image(
             painter = painterResource(
-                if (item.isBookmarked) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark_outline
+                if (item.isFavorite) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark_outline
             ),
             contentDescription = null,
             contentScale = ContentScale.Fit,
@@ -137,11 +118,15 @@ private fun ReviewEntryRowPreview() {
     KidsDemoTheme {
         ReviewEntryRow(
             item = ReviewItem(
-                id = "1",
-                arabic = "يتحرك",
-                english = "Move",
-                iconRes = R.drawable.ic_alifbee_2,
-                isBookmarked = false,
+                id = 1,
+                text = "يتحرك",
+                translation = "Move",
+                sound = null,
+                score = 2,
+                isFavorite = false,
+                levelId = 1,
+                lessonId = 5,
+                lessonSlug = "A1_Unit1_Lesson1",
             ),
             onItemClicked = {},
             onAudioClicked = {},

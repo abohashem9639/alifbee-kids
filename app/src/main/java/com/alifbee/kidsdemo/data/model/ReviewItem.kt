@@ -1,11 +1,13 @@
 package com.alifbee.kidsdemo.data.model
 
-import androidx.annotation.DrawableRes
-
 data class ReviewItem(
-    val id: String,
-    val arabic: String,
-    val english: String?,
-    @DrawableRes val iconRes: Int?,
-    val isBookmarked: Boolean,
+    val id: Int,
+    val text: String,
+    val translation: String?,
+    val sound: String?,
+    val score: Int,
+    val isFavorite: Boolean,
+    val levelId: Int,
+    val lessonId: Int,
+    val lessonSlug: String,
 )

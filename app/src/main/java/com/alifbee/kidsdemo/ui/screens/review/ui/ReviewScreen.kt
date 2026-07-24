@@ -155,11 +155,12 @@ private fun ReviewScreenPreview() {
                 itemsReadyCount = 38,
                 groups = listOf(
                     ReviewGroup(
-                        id = "words",
-                        title = "Items (24)",
+                        lessonId = 5,
+                        lessonSlug = "A1_Unit1_Lesson1",
+                        title = "A1 Unit 1 Lesson 1",
                         items = listOf(
-                            ReviewItem(id = "w1", arabic = "يتحرك", english = "Move", iconRes = R.drawable.ic_alifbee_2, isBookmarked = false),
-                            ReviewItem(id = "w2", arabic = "سحابة السماء", english = "Cloud sky", iconRes = R.drawable.ic_alifbee_2, isBookmarked = true),
+                            ReviewItem(id = 1, text = "يتحرك", translation = "Move", sound = null, score = 2, isFavorite = false, levelId = 1, lessonId = 5, lessonSlug = "A1_Unit1_Lesson1"),
+                            ReviewItem(id = 2, text = "سحابة السماء", translation = "Cloud sky", sound = null, score = 3, isFavorite = true, levelId = 1, lessonId = 5, lessonSlug = "A1_Unit1_Lesson1"),
                         ),
                     ),
                 ),

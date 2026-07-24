@@ -1,6 +1,7 @@
 package com.alifbee.kidsdemo.data.remote
 
 import com.alifbee.kidsdemo.data.remote.dto.InitialBody
+import com.alifbee.kidsdemo.data.remote.dto.ReviewsBody
 import com.alifbee.kidsdemo.data.remote.dto.SignInBody
 import com.alifbee.kidsdemo.data.remote.dto.SignInRequest
 import com.alifbee.kidsdemo.data.remote.dto.SyllabusBody
@@ -29,4 +30,8 @@ interface ApiService {
     @Headers("Accept: application/json")
     @POST("v2/users/update_user_profile")
     suspend fun updateUserProfile(@Body request: UpdateProfileRequest): ApiResponse<UpdateProfileBody>
+
+    @Headers("Accept: application/json")
+    @GET("v1/review/get_reviews")
+    suspend fun getReviews(): ApiResponse<ReviewsBody>
 }
