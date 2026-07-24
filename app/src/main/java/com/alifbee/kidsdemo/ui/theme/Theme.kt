@@ -95,6 +95,7 @@ fun KidsDemoTheme(
         skeletonHighlight = skeletonHighlight,
         reviewItemIconBg = reviewItemIconBg,
         reviewItemDivider = reviewItemDivider,
+        levelCardBg = levelCardBg,
     )
     CompositionLocalProvider(LocalCustomColors provides customColorsPalette) {
         MaterialTheme(

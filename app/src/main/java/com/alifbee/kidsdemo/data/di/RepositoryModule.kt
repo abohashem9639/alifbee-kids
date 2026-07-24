@@ -8,8 +8,10 @@ import com.alifbee.kidsdemo.data.repository.HomescreenRepository
 import com.alifbee.kidsdemo.data.repository.RemoteAppsRepository
 import com.alifbee.kidsdemo.data.repository.RemoteAuthRepository
 import com.alifbee.kidsdemo.data.repository.RemoteSyllabusRepository
+import com.alifbee.kidsdemo.data.repository.RemoteUserRepository
 import com.alifbee.kidsdemo.data.repository.ReviewRepository
 import com.alifbee.kidsdemo.data.repository.SyllabusRepository
+import com.alifbee.kidsdemo.data.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -31,6 +33,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindSyllabusRepository(impl: RemoteSyllabusRepository): SyllabusRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserRepository(impl: RemoteUserRepository): UserRepository
 
     @Binds
     @Singleton

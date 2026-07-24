@@ -29,7 +29,7 @@ internal interface HomescreenContract {
     }
 
     sealed interface Effect : UiEffect {
-        data object NavigateToLogin : Effect
+        data object NavigateToChangeLanguage : Effect
     }
 
     @Immutable

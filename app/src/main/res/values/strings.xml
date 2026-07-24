@@ -67,6 +67,25 @@
     <string name="review_all">Review All</string>
     <string name="cd_info">Information</string>
 
+    <string name="library_title">LESSONS</string>
+    <string name="levels_title">Levels</string>
+    <string name="levels_count_format">%1$d levels</string>
+    <string name="lessons_count_format">%1$d Lessons</string>
+    <string name="targets_title">Targets</string>
+    <string name="cd_target_locked">Locked</string>
+    <string name="cd_target_play">Start</string>
+    <string name="cd_target_replay">Replay</string>
+    <string name="lesson_number_format">Lesson %1$d</string>
+    <string name="lessons_completed_format">%1$d / %2$d Lessons completed</string>
+    <string name="review_label">Review</string>
+    <string name="review_completed_lesson">Review completed lesson</string>
+    <string name="syllabus_error">Something went wrong. Tap to retry</string>
+    <string name="cd_expand_levels">Expand levels</string>
+
+    <string name="change_language_title">Change Language</string>
+    <string name="done">Done</string>
+    <string name="cd_language_flag">Language flag</string>
+
     <string name="login_title">Log in</string>
     <string name="enter_your_credentials">Enter your credentials</string>
     <string name="username_or_email">Username or Email</string>

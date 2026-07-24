@@ -2,6 +2,7 @@ package com.alifbee.kidsdemo.data.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.alifbee.kidsdemo.data.model.AuthSession
@@ -20,6 +21,8 @@ class DataStoreManagerImpl @Inject constructor(
 
     private val userSessionKey = stringPreferencesKey("user_session")
     private val syllabusKey = stringPreferencesKey("syllabus")
+    private val selectedLevelIdKey = intPreferencesKey("selected_level_id")
+    private val appLanguageKey = stringPreferencesKey("app_language")
 
     override val userSession: Flow<AuthSession?> = context.dataStore.data.map { prefs ->
         prefs[userSessionKey]?.let { json ->
@@ -37,6 +40,14 @@ class DataStoreManagerImpl @Inject constructor(
         }
     }
 
+    override val selectedLevelId: Flow<Int?> = context.dataStore.data.map { prefs ->
+        prefs[selectedLevelIdKey]
+    }
+
+    override val appLanguage: Flow<String> = context.dataStore.data.map { prefs ->
+        prefs[appLanguageKey] ?: "en"
+    }
+
     override suspend fun setUserSession(session: AuthSession) {
         context.dataStore.edit { prefs ->
             prefs[userSessionKey] = Json.encodeToString(AuthSession.serializer(), session)
@@ -47,12 +58,25 @@ class DataStoreManagerImpl @Inject constructor(
         context.dataStore.edit { prefs ->
             prefs.remove(userSessionKey)
             prefs.remove(syllabusKey)
+            prefs.remove(selectedLevelIdKey)
         }
     }
 
     override suspend fun setSyllabus(syllabus: Syllabus) {
         context.dataStore.edit { prefs ->
             prefs[syllabusKey] = Json.encodeToString(Syllabus.serializer(), syllabus)
+        }
+    }
+
+    override suspend fun setSelectedLevelId(levelId: Int) {
+        context.dataStore.edit { prefs ->
+            prefs[selectedLevelIdKey] = levelId
+        }
+    }
+
+    override suspend fun setAppLanguage(code: String) {
+        context.dataStore.edit { prefs ->
+            prefs[appLanguageKey] = code
         }
     }
 }

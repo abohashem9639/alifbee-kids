@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
 data object HomescreenRoute : BottomBarNavRoute
 
 internal fun NavGraphBuilder.homescreenRoute(
-    onNavigateToLogin: () -> Unit,
+    onNavigateToChangeLanguage: () -> Unit,
 ) {
     fadeComposable<HomescreenRoute> {
         val viewModel: HomescreenViewModel = hiltViewModel()
@@ -23,7 +23,7 @@ internal fun NavGraphBuilder.homescreenRoute(
             state = state,
             effectFlow = viewModel.effect,
             onEventSent = viewModel::setEvent,
-            onNavigateToLogin = onNavigateToLogin,
+            onNavigateToChangeLanguage = onNavigateToChangeLanguage,
         )
     }
 }

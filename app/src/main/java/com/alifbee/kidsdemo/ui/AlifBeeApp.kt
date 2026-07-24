@@ -35,6 +35,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.alifbee.kidsdemo.R
 import com.alifbee.kidsdemo.ui.screens.dictionary.ui.navigation.DictionaryRoute
@@ -43,6 +44,11 @@ import com.alifbee.kidsdemo.ui.screens.home.ui.navigation.HomeRoute
 import com.alifbee.kidsdemo.ui.screens.home.ui.navigation.homeRoute
 import com.alifbee.kidsdemo.ui.screens.homescreen.ui.navigation.HomescreenRoute
 import com.alifbee.kidsdemo.ui.screens.homescreen.ui.navigation.homescreenRoute
+import com.alifbee.kidsdemo.ui.screens.language.ui.navigation.ChangeLanguageRoute
+import com.alifbee.kidsdemo.ui.screens.language.ui.navigation.changeLanguageRoute
+import com.alifbee.kidsdemo.ui.screens.levels.ui.navigation.LevelsRoute
+import com.alifbee.kidsdemo.ui.screens.levels.ui.navigation.levelsRoute
+import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.LibraryGraphRoute
 import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.LibraryRoute
 import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.libraryRoute
 import com.alifbee.kidsdemo.ui.screens.login.ui.navigation.LoginRoute
@@ -55,6 +61,8 @@ import com.alifbee.kidsdemo.ui.screens.review.ui.navigation.ReviewRoute
 import com.alifbee.kidsdemo.ui.screens.review.ui.navigation.reviewRoute
 import com.alifbee.kidsdemo.ui.screens.splash.ui.navigation.SplashRoute
 import com.alifbee.kidsdemo.ui.screens.splash.ui.navigation.splashRoute
+import com.alifbee.kidsdemo.ui.screens.targets.ui.navigation.TargetsRoute
+import com.alifbee.kidsdemo.ui.screens.targets.ui.navigation.targetsRoute
 import com.alifbee.kidsdemo.ui.theme.LocalCustomColors
 
 @Composable
@@ -96,7 +104,7 @@ fun AlifBeeApp() {
         ) {
             splashRoute(
                 onNavigateToHome = {
-                    navController.navigate(HomeRoute) {
+                    navController.navigate(HomescreenRoute) {
                         popUpTo(SplashRoute) { inclusive = true }
                     }
                 },
@@ -124,9 +132,31 @@ fun AlifBeeApp() {
                 onBackClicked = { navController.popBackStack() },
             )
             homescreenRoute(
-                onNavigateToLogin = { navController.navigate(LoginRoute) },
+                onNavigateToChangeLanguage = { navController.navigate(ChangeLanguageRoute) },
             )
-            libraryRoute()
+            changeLanguageRoute(
+                isRtl = isRtl,
+                onCloseClicked = { navController.popBackStack() },
+                onDone = { navController.popBackStack() },
+            )
+            navigation<LibraryGraphRoute>(startDestination = LibraryRoute) {
+                libraryRoute(
+                    navController = navController,
+                    onNavigateToLevels = { navController.navigate(LevelsRoute) },
+                    onNavigateToTargets = { lessonId -> navController.navigate(TargetsRoute(lessonId)) },
+                )
+                levelsRoute(
+                    navController = navController,
+                    isRtl = isRtl,
+                    onCloseClicked = { navController.popBackStack() },
+                    onLevelSelected = { navController.popBackStack() },
+                )
+                targetsRoute(
+                    navController = navController,
+                    isRtl = isRtl,
+                    onCloseClicked = { navController.popBackStack() },
+                )
+            }
             dictionaryRoute()
             reviewRoute()
             loginRoute(
@@ -165,7 +195,10 @@ private fun SystemScreenBehavior(currentDestination: NavDestination?) {
                 destination.hasRoute(HomescreenRoute::class) ||
                     destination.hasRoute(LibraryRoute::class) ||
                     destination.hasRoute(DictionaryRoute::class) ||
-                    destination.hasRoute(LoginRoute::class)
+                    destination.hasRoute(LoginRoute::class) ||
+                    destination.hasRoute(LevelsRoute::class) ||
+                    destination.hasRoute(TargetsRoute::class) ||
+                    destination.hasRoute(ChangeLanguageRoute::class)
         }
     }
 }

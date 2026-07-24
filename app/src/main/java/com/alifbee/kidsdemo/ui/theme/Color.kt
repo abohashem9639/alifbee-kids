@@ -77,6 +77,7 @@ val skeletonPlaceholder = Color(0xFFE0E0E0)
 val skeletonHighlight = Color(0xFFF5F5F5)
 val reviewItemIconBg = Color(0xFFB8DEE8)
 val reviewItemDivider = Color(0xFFEAEAEA)
+val levelCardBg = Color(0xFFD9C6E2)
 
 @Immutable
 data class CustomColorsPalette(
@@ -110,4 +111,5 @@ data class CustomColorsPalette(
     val skeletonHighlight: Color = Color.Unspecified,
     val reviewItemIconBg: Color = Color.Unspecified,
     val reviewItemDivider: Color = Color.Unspecified,
+    val levelCardBg: Color = Color.Unspecified,
 )
