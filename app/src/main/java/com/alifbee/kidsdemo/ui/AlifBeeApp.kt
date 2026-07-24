@@ -45,6 +45,8 @@ import com.alifbee.kidsdemo.ui.screens.homescreen.ui.navigation.HomescreenRoute
 import com.alifbee.kidsdemo.ui.screens.homescreen.ui.navigation.homescreenRoute
 import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.LibraryRoute
 import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.libraryRoute
+import com.alifbee.kidsdemo.ui.screens.login.ui.navigation.LoginRoute
+import com.alifbee.kidsdemo.ui.screens.login.ui.navigation.loginRoute
 import com.alifbee.kidsdemo.ui.screens.moreapps.ui.navigation.MoreAppsRoute
 import com.alifbee.kidsdemo.ui.screens.moreapps.ui.navigation.moreAppsRoute
 import com.alifbee.kidsdemo.ui.screens.parentslock.ui.navigation.ParentsLockRoute
@@ -59,6 +61,7 @@ import com.alifbee.kidsdemo.ui.theme.LocalCustomColors
 fun AlifBeeApp() {
     val navController = rememberNavController()
     val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val activity = LocalActivity.current
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -97,6 +100,11 @@ fun AlifBeeApp() {
                         popUpTo(SplashRoute) { inclusive = true }
                     }
                 },
+                onNavigateToLogin = {
+                    navController.navigate(LoginRoute) {
+                        popUpTo(SplashRoute) { inclusive = true }
+                    }
+                },
             )
             homeRoute(
                 onNavigateToHomescreen = { navController.navigate(HomescreenRoute) },
@@ -115,10 +123,24 @@ fun AlifBeeApp() {
                 isRtl = isRtl,
                 onBackClicked = { navController.popBackStack() },
             )
-            homescreenRoute()
+            homescreenRoute(
+                onNavigateToLogin = { navController.navigate(LoginRoute) },
+            )
             libraryRoute()
             dictionaryRoute()
             reviewRoute()
+            loginRoute(
+                isRtl = isRtl,
+                onCloseClicked = {
+                    if (!navController.popBackStack()) activity?.finish()
+                },
+                onSignInSuccessNavigate = {
+                    navController.navigate(HomescreenRoute) {
+                        popUpTo(LoginRoute) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
+            )
         }
     }
 }
@@ -142,7 +164,8 @@ private fun SystemScreenBehavior(currentDestination: NavDestination?) {
             insetsController.isAppearanceLightStatusBars =
                 destination.hasRoute(HomescreenRoute::class) ||
                     destination.hasRoute(LibraryRoute::class) ||
-                    destination.hasRoute(DictionaryRoute::class)
+                    destination.hasRoute(DictionaryRoute::class) ||
+                    destination.hasRoute(LoginRoute::class)
         }
     }
 }

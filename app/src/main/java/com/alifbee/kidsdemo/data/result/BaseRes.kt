@@ -5,6 +5,11 @@ sealed class BaseRes<out T> {
     data class Error(val error: AppError) : BaseRes<Nothing>()
 }
 
+inline fun <T, R> BaseRes<T>.map(transform: (T) -> R): BaseRes<R> = when (this) {
+    is BaseRes.Body -> BaseRes.Body(transform(body))
+    is BaseRes.Error -> this
+}
+
 inline fun <T> BaseRes<T>.onSuccess(action: (T) -> Unit): BaseRes<T> {
     if (this is BaseRes.Body) action(body)
     return this

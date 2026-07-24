@@ -28,7 +28,9 @@ internal interface HomescreenContract {
         data object OnAssignmentStatusClicked : Event
     }
 
-    sealed interface Effect : UiEffect
+    sealed interface Effect : UiEffect {
+        data object NavigateToLogin : Effect
+    }
 
     @Immutable
     data class State(

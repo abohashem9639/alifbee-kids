@@ -49,8 +49,13 @@ internal fun HomescreenScreen(
     state: HomescreenContract.State,
     effectFlow: Flow<HomescreenContract.Effect>,
     onEventSent: (event: HomescreenContract.Event) -> Unit,
+    onNavigateToLogin: () -> Unit,
 ) {
-    effectFlow.CollectEffect { }
+    effectFlow.CollectEffect { effect ->
+        when (effect) {
+            HomescreenContract.Effect.NavigateToLogin -> onNavigateToLogin()
+        }
+    }
 
     HomescreenContent(
         state = state,
@@ -224,6 +229,7 @@ private fun HomescreenScreenPreview() {
             ),
             effectFlow = emptyFlow(),
             onEventSent = {},
+            onNavigateToLogin = {},
         )
     }
 }

@@ -14,6 +14,7 @@ data object SplashRoute
 
 internal fun NavGraphBuilder.splashRoute(
     onNavigateToHome: () -> Unit,
+    onNavigateToLogin: () -> Unit,
 ) {
     fadeComposable<SplashRoute> {
         val viewModel: SplashViewModel = hiltViewModel()
@@ -23,6 +24,7 @@ internal fun NavGraphBuilder.splashRoute(
             effectFlow = viewModel.effect,
             onEventSent = viewModel::setEvent,
             onNavigateToHome = onNavigateToHome,
+            onNavigateToLogin = onNavigateToLogin,
         )
     }
 }

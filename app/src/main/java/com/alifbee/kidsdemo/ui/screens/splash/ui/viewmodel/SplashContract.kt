@@ -11,6 +11,7 @@ internal interface SplashContract {
 
     sealed interface Effect : UiEffect {
         data object NavigateToHome : Effect
+        data object NavigateToLogin : Effect
     }
 
     @Immutable

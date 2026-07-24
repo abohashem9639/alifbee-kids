@@ -1,12 +1,26 @@
 package com.alifbee.kidsdemo.data.remote
 
-import com.alifbee.kidsdemo.data.remote.dto.InitialResponse
+import com.alifbee.kidsdemo.data.remote.dto.InitialBody
+import com.alifbee.kidsdemo.data.remote.dto.SignInBody
+import com.alifbee.kidsdemo.data.remote.dto.SignInRequest
+import com.alifbee.kidsdemo.data.remote.dto.SyllabusBody
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
 
     @Headers("Accept: application/json")
-    @GET("general/initial")
-    suspend fun getInitial(): InitialResponse
+    @GET("v2/general/initial")
+    suspend fun getInitial(): ApiResponse<InitialBody>
+
+    @Headers("Accept: application/json")
+    @POST("v2/auth/signin")
+    suspend fun signIn(@Body request: SignInRequest): ApiResponse<SignInBody>
+
+    @Headers("Accept: application/json")
+    @GET("v5/syllabus/get_syllabus")
+    suspend fun getSyllabus(@Query("environment") environment: String): ApiResponse<SyllabusBody>
 }

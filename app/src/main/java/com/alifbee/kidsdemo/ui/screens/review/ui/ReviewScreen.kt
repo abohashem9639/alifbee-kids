@@ -1,5 +1,6 @@
 package com.alifbee.kidsdemo.ui.screens.review.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -57,6 +58,7 @@ internal fun ReviewScreen(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ReviewContent(
     state: ReviewContract.State,
@@ -127,7 +129,7 @@ private fun ReviewContent(
                 contentPadding = PaddingValues(bottom = 24.dp),
             ) {
                 state.groups.forEach { group ->
-                    item {
+                    stickyHeader {
                         ReviewGroupHeader(title = group.title)
                     }
                     items(group.items) { reviewItem ->

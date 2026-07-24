@@ -2,11 +2,6 @@ package com.alifbee.kidsdemo.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class InitialResponse(
-    @SerializedName("success") val success: Boolean,
-    @SerializedName("body") val body: InitialBody
-)
-
 data class InitialBody(
     @SerializedName("our_apps") val ourApps: Map<String, List<AppDto>>
 )

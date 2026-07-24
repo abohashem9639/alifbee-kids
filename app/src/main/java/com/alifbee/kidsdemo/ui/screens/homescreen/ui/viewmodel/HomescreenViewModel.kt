@@ -19,7 +19,12 @@ internal class HomescreenViewModel @Inject constructor(
         loadHomescreen()
     }
 
-    override fun handleEvent(event: HomescreenContract.Event) = Unit
+    override fun handleEvent(event: HomescreenContract.Event) {
+        when (event) {
+            HomescreenContract.Event.OnSettingsClicked -> setEffect { HomescreenContract.Effect.NavigateToLogin }
+            else -> Unit
+        }
+    }
 
     private fun loadHomescreen() {
         setState { copy(fetchState = HomescreenContract.FetchState.IsLoading(true)) }

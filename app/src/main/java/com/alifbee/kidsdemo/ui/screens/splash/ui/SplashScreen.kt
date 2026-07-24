@@ -24,10 +24,12 @@ internal fun SplashScreen(
     effectFlow: Flow<SplashContract.Effect>,
     onEventSent: (event: SplashContract.Event) -> Unit,
     onNavigateToHome: () -> Unit,
+    onNavigateToLogin: () -> Unit,
 ) {
     effectFlow.CollectEffect { effect ->
         when (effect) {
             SplashContract.Effect.NavigateToHome -> onNavigateToHome()
+            SplashContract.Effect.NavigateToLogin -> onNavigateToLogin()
         }
     }
 

@@ -1,15 +1,17 @@
 package com.alifbee.kidsdemo.data.repository
 
 import com.alifbee.kidsdemo.data.model.AppItem
+import com.alifbee.kidsdemo.data.result.BaseRes
 import kotlinx.coroutines.delay
 
 class FakeAppsRepository : AppsRepository {
 
-    override suspend fun getApps(): List<AppItem> {
+    override suspend fun getApps(): BaseRes<List<AppItem>> {
         delay(600)
         val description =
             "Discover the fun world of Arabic with the AlifBee Kids - Let them have fun while learning."
-        return listOf(
+        return BaseRes.Body(
+            listOf(
             AppItem(
                 id = "1",
                 name = "AlifBee - Learn Arabic The Easy Way",
@@ -37,6 +39,7 @@ class FakeAppsRepository : AppsRepository {
                 description = description,
                 iconUrl = "",
                 storeUrl = "https://play.google.com/store/apps/details?id=com.alifbee.hadith"
+            )
             )
         )
     }
