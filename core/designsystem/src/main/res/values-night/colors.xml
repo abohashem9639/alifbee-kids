@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="homescreen_bg">#1B1720</color>
+    <color name="go_premium_bg">#322D38</color>
+    <color name="skeleton_placeholder">#2A2530</color>
+    <color name="skeleton_highlight">#3B3540</color>
+    <color name="bottom_nav_bg">#2A1A2E</color>
+    <color name="review_group_header_bg">#322D38</color>
+    <color name="review_item_divider">#3B3540</color>
+    <color name="course_card_bg">#2E2820</color>
+    <color name="course_progress_track">#3D3524</color>
+    <color name="feature_circle_bg">#3D3644</color>
+    <color name="service_bg_gray">#2A2530</color>
+    <color name="service_bg_pink">#3B2A2C</color>
+    <color name="service_bg_cream">#3A3220</color>
+    <color name="statistic_card_bg">#2A2530</color>
+    <color name="day_glow">#4A3F1A</color>
+    <color name="day_current_bg">#524619</color>
+    <color name="day_empty_stroke">#4A4550</color>
+    <color name="day_missed_glow">#2E2A25</color>
+    <color name="day_missed_bg">#3B342D</color>
+    <color name="divider_gray">#3B3540</color>
+    <color name="assignment_track">#322D38</color>
+    <color name="pricing_card_gray">#2A2530</color>
+    <color name="pricing_card_lavender">#2C2532</color>
+    <color name="profile_card_bg">#2A2230</color>
+    <color name="profile_stats_bg">#2A2530</color>
+    <color name="settings_button_bg">#322D38</color>
+    <color name="text_primary">#EDE6EE</color>
+    <color name="text_secondary">#B8B2BE</color>
+</resources>

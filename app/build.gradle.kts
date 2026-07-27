@@ -45,41 +45,43 @@ android {
 
 dependencies {
 
+    // Core modules
+    implementation(project(":core:model"))
+    implementation(project(":core:common"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:network"))
+    implementation(project(":core:database"))
+    implementation(project(":core:data"))
+
+    // Feature modules
+    implementation(project(":feature:auth"))
+    implementation(project(":feature:splash"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:library"))
+    implementation(project(":feature:review"))
+    implementation(project(":feature:dictionary"))
+    implementation(project(":feature:parentslock"))
+    implementation(project(":feature:settings"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
     implementation(libs.androidx.activity)
-
-    // MVVM — Lifecycle / ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    // Persistence
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    // Networking
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.okhttp.logging.interceptor)
 
     // Dependency injection
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    // Jetpack Compose
+    // Jetpack Compose (root NavHost + BottomBar)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.coil.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     testImplementation(libs.junit)

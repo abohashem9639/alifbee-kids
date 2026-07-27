@@ -2,6 +2,9 @@ package com.alifbee.kidsdemo.ui
 
 import android.content.pm.ActivityInfo
 import androidx.activity.compose.LocalActivity
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -23,6 +26,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,7 +41,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.alifbee.kidsdemo.R
+import com.alifbee.kidsdemo.core.designsystem.R
 import com.alifbee.kidsdemo.ui.screens.dictionary.ui.navigation.DictionaryRoute
 import com.alifbee.kidsdemo.ui.screens.dictionary.ui.navigation.dictionaryRoute
 import com.alifbee.kidsdemo.ui.screens.home.ui.navigation.HomeRoute
@@ -64,7 +68,9 @@ import com.alifbee.kidsdemo.ui.screens.splash.ui.navigation.splashRoute
 import com.alifbee.kidsdemo.ui.screens.targets.ui.navigation.TargetsRoute
 import com.alifbee.kidsdemo.ui.screens.targets.ui.navigation.targetsRoute
 import com.alifbee.kidsdemo.ui.theme.LocalCustomColors
+import com.alifbee.kidsdemo.ui.utils.LocalSharedTransitionScope
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun AlifBeeApp() {
     val navController = rememberNavController()
@@ -97,11 +103,12 @@ fun AlifBeeApp() {
             }
         },
     ) { contentPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = SplashRoute,
-            modifier = Modifier.padding(contentPadding),
-        ) {
+        SharedTransitionLayout(modifier = Modifier.padding(contentPadding)) {
+            CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+                NavHost(
+                    navController = navController,
+                    startDestination = SplashRoute,
+                ) {
             splashRoute(
                 onNavigateToHome = {
                     navController.navigate(HomescreenRoute) {
@@ -171,6 +178,8 @@ fun AlifBeeApp() {
                     }
                 },
             )
+                }
+            }
         }
     }
 }
@@ -242,11 +251,7 @@ private fun AppBottomBar(
                 Icon(
                     painter = painterResource(tab.iconRes),
                     contentDescription = stringResource(tab.labelRes),
-                    tint = if (selected) {
-                        LocalCustomColors.current.brandYellow
-                    } else {
-                        MaterialTheme.colorScheme.onPrimary
-                    },
+                    tint = if (selected) LocalCustomColors.current.brandYellow else Color.White,
                     modifier = Modifier.size(24.dp),
                 )
             }

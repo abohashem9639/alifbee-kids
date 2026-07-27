@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.alifbee.kidsdemo.data.datastore.DataStoreManager
+import com.alifbee.kidsdemo.data.model.ThemeMode
 import com.alifbee.kidsdemo.ui.AlifBeeApp
 import com.alifbee.kidsdemo.ui.ProvideAppLocale
 import com.alifbee.kidsdemo.ui.theme.KidsDemoTheme
@@ -25,10 +26,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val initialLanguage = runBlocking { dataStoreManager.appLanguage.first() }
+        val initialThemeMode = runBlocking { dataStoreManager.appThemeMode.first() }
         setContent {
             val language by dataStoreManager.appLanguage.collectAsState(initial = initialLanguage)
-            ProvideAppLocale(languageCode = language) {
-                KidsDemoTheme {
+            val themeMode by dataStoreManager.appThemeMode.collectAsState(initial = initialThemeMode)
+            val isDark = themeMode == ThemeMode.DARK
+            ProvideAppLocale(languageCode = language, darkTheme = isDark) {
+                KidsDemoTheme(darkTheme = isDark) {
                     AlifBeeApp()
                 }
             }
