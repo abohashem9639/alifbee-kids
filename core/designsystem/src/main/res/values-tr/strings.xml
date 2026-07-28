@@ -72,6 +72,7 @@
     <string name="levels_count_format">%1$d seviye</string>
     <string name="lessons_count_format">%1$d Ders</string>
     <string name="targets_title">Hedefler</string>
+    <string name="check">Kontrol et</string>
     <string name="cd_target_locked">Kilitli</string>
     <string name="cd_target_play">Başla</string>
     <string name="cd_target_replay">Tekrar oynat</string>

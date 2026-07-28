@@ -2,6 +2,8 @@ package com.alifbee.kidsdemo.ui.screens.login.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -98,6 +100,7 @@ private fun LoginContent(
             .background(MaterialTheme.colorScheme.background)
             .systemBarsPadding()
             .imePadding()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp),
     ) {
         Row(
@@ -196,7 +199,7 @@ private fun LoginContent(
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(32.dp))
 
         Button(
             onClick = { onEventSent(LoginContract.Event.OnLoginClicked(email, password)) },

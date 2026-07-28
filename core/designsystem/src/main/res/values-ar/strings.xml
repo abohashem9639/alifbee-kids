@@ -72,6 +72,7 @@
     <string name="levels_count_format">%1$d مستويات</string>
     <string name="lessons_count_format">%1$d درس</string>
     <string name="targets_title">الأهداف</string>
+    <string name="check">تحقّق</string>
     <string name="cd_target_locked">مقفل</string>
     <string name="cd_target_play">ابدأ</string>
     <string name="cd_target_replay">إعادة</string>

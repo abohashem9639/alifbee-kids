@@ -44,6 +44,7 @@ internal fun TargetsScreen(
     state: SyllabusContract.State,
     onEventSent: (event: SyllabusContract.Event) -> Unit,
     onCloseClicked: () -> Unit,
+    onTargetClicked: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -119,7 +120,7 @@ internal fun TargetsScreen(
                                 target = target,
                                 isActive = target.id == activeTargetId,
                                 isLast = index == state.targets.lastIndex,
-                                onClick = {},
+                                onClick = onTargetClicked,
                             )
                         }
                     }

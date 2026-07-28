@@ -20,6 +20,7 @@ fun NavGraphBuilder.targetsRoute(
     navController: NavController,
     isRtl: Boolean,
     onCloseClicked: () -> Unit,
+    onTargetClicked: () -> Unit,
 ) {
     slideComposable<TargetsRoute>(isRtlDirection = isRtl) { backStackEntry ->
         val lessonId = backStackEntry.toRoute<TargetsRoute>().lessonId
@@ -32,6 +33,7 @@ fun NavGraphBuilder.targetsRoute(
             state = state,
             onEventSent = viewModel::setEvent,
             onCloseClicked = onCloseClicked,
+            onTargetClicked = onTargetClicked,
         )
     }
 }

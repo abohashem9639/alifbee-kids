@@ -72,6 +72,7 @@
     <string name="levels_count_format">%1$d levels</string>
     <string name="lessons_count_format">%1$d Lessons</string>
     <string name="targets_title">Targets</string>
+    <string name="check">Check</string>
     <string name="cd_target_locked">Locked</string>
     <string name="cd_target_play">Start</string>
     <string name="cd_target_replay">Replay</string>

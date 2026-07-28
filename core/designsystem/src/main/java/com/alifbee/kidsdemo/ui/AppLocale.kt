@@ -22,8 +22,9 @@ fun ProvideAppLocale(
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
+    val baseConfiguration = LocalConfiguration.current
 
-    val localizedContext = remember(languageCode, darkTheme, context) {
+    val localizedContext = remember(languageCode, darkTheme, context, baseConfiguration) {
         LocalizedContextWrapper(context, languageCode, darkTheme)
     }
 

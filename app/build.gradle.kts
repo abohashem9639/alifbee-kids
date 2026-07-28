@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":feature:dictionary"))
     implementation(project(":feature:parentslock"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:matchpairs"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)

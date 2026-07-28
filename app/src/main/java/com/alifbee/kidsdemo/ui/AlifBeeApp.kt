@@ -57,6 +57,8 @@ import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.LibraryRoute
 import com.alifbee.kidsdemo.ui.screens.library.ui.navigation.libraryRoute
 import com.alifbee.kidsdemo.ui.screens.login.ui.navigation.LoginRoute
 import com.alifbee.kidsdemo.ui.screens.login.ui.navigation.loginRoute
+import com.alifbee.kidsdemo.ui.screens.matchpairs.ui.navigation.MatchPairsRoute
+import com.alifbee.kidsdemo.ui.screens.matchpairs.ui.navigation.matchPairsRoute
 import com.alifbee.kidsdemo.ui.screens.moreapps.ui.navigation.MoreAppsRoute
 import com.alifbee.kidsdemo.ui.screens.moreapps.ui.navigation.moreAppsRoute
 import com.alifbee.kidsdemo.ui.screens.parentslock.ui.navigation.ParentsLockRoute
@@ -162,8 +164,13 @@ fun AlifBeeApp() {
                     navController = navController,
                     isRtl = isRtl,
                     onCloseClicked = { navController.popBackStack() },
+                    onTargetClicked = { navController.navigate(MatchPairsRoute) },
                 )
             }
+            matchPairsRoute(
+                isRtl = isRtl,
+                onCloseClicked = { navController.popBackStack() },
+            )
             dictionaryRoute()
             reviewRoute()
             loginRoute(
@@ -191,14 +198,13 @@ private fun SystemScreenBehavior(currentDestination: NavDestination?) {
         val destination = currentDestination ?: return@LaunchedEffect
         val window = activity.window
         val insetsController = WindowInsetsControllerCompat(window, window.decorView)
+        activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         if (destination.hasRoute(HomeRoute::class)) {
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             insetsController.hide(WindowInsetsCompat.Type.systemBars())
             insetsController.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             insetsController.isAppearanceLightStatusBars = true
         } else {
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             insetsController.show(WindowInsetsCompat.Type.systemBars())
             insetsController.isAppearanceLightStatusBars =
                 destination.hasRoute(HomescreenRoute::class) ||
@@ -207,6 +213,7 @@ private fun SystemScreenBehavior(currentDestination: NavDestination?) {
                     destination.hasRoute(LoginRoute::class) ||
                     destination.hasRoute(LevelsRoute::class) ||
                     destination.hasRoute(TargetsRoute::class) ||
+                    destination.hasRoute(MatchPairsRoute::class) ||
                     destination.hasRoute(ChangeLanguageRoute::class)
         }
     }
